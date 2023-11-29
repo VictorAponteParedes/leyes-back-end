@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from .serializers import CustomUserSerializer
-from .models import CustomUser
+from .serializers import (
+    CustomUserSerializer,
+    ClienteSerializer,
+    AbogadoSerializer,
+    CasoSerializer,
+    EspecialidadSerializer,
+)
+from .models import CustomUser, Cliente, Abogado, Caso, Especialidad
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -37,3 +44,23 @@ def registrar_usuario(request):
 class CustomUserViewset(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
+
+
+class ClienteViewset(viewsets.ModelViewSet):
+    serializer_class = ClienteSerializer
+    queryset = Cliente.objects.all()
+
+
+class AbogadoViewset(viewsets.ModelViewSet):
+    serializer_class = AbogadoSerializer
+    queryset = Abogado.objects.all()
+
+
+class EspecialidadViewset(viewsets.ModelViewSet):
+    serializer_class = EspecialidadSerializer
+    queryset = Especialidad.objects.all()
+
+
+class CasoViewset(viewsets.ModelViewSet):
+    serializer_class = CasoSerializer
+    queryset = Caso.objects.all()
