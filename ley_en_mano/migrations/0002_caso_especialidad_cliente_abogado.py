@@ -6,53 +6,137 @@ import ley_en_mano.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ley_en_mano', '0001_initial'),
+        ("ley_en_mano", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Caso',
+            name="Caso",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=40, null=True)),
-                ('nro_expediente', models.IntegerField(default=0, null=True)),
-                ('fecha', models.DateField()),
-                ('materia', models.CharField(choices=[('laboral', 'Laboral'), ('civil y comercial', 'Civil y Comercial'), ('administrativo', 'Administrativo'), ('penal', 'Penal'), ('niñez y adolecencia', 'Niñez y Adolecencia')], default='laboral', max_length=20)),
-                ('juzgado', models.CharField(default='', max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=40, null=True)),
+                ("nro_expediente", models.IntegerField(default=0, null=True)),
+                ("fecha", models.DateField()),
+                (
+                    "materia",
+                    models.CharField(
+                        choices=[
+                            ("laboral", "Laboral"),
+                            ("civil y comercial", "Civil y Comercial"),
+                            ("administrativo", "Administrativo"),
+                            ("penal", "Penal"),
+                            ("niñez y adolecencia", "Niñez y Adolecencia"),
+                        ],
+                        default="laboral",
+                        max_length=20,
+                    ),
+                ),
+                ("juzgado", models.CharField(default="", max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Especialidad',
+            name="Especialidad",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Cliente',
+            name="Cliente",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=50)),
-                ('edad', models.IntegerField(default=18, help_text='Ingrese su edad', verbose_name='Edad')),
-                ('telefono', models.IntegerField(default=None, verbose_name='Celular')),
-                ('is_activo', models.BooleanField(default=False)),
-                ('foto_perfil', models.ImageField(blank=True, null=True, upload_to=ley_en_mano.models.imagen_cliente)),
-                ('caso_relacionado', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ley_en_mano.caso')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=50)),
+                (
+                    "edad",
+                    models.IntegerField(
+                        default=18, help_text="Ingrese su edad", verbose_name="Edad"
+                    ),
+                ),
+                ("telefono", models.IntegerField(default=None, verbose_name="Celular")),
+                ("is_activo", models.BooleanField(default=False)),
+                ("foto_perfil", models.ImageField(blank=True, null=True)),
+                (
+                    "caso_relacionado",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ley_en_mano.caso",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Abogado',
+            name="Abogado",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=50, null=True, verbose_name='Nombre')),
-                ('edad', models.IntegerField(blank=True, default=20, null=True, verbose_name='Edad')),
-                ('telefono', models.IntegerField(default=None, verbose_name='Celular')),
-                ('foto_perfil', models.ImageField(blank=True, null=True, upload_to=ley_en_mano.models.imagen_abogado)),
-                ('descripcion', models.TextField(blank=True, default='descripcion', null=True)),
-                ('cliente_relacionado', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ley_en_mano.cliente')),
-                ('especialidad', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ley_en_mano.especialidad')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "nombre",
+                    models.CharField(max_length=50, null=True, verbose_name="Nombre"),
+                ),
+                (
+                    "edad",
+                    models.IntegerField(
+                        blank=True, default=20, null=True, verbose_name="Edad"
+                    ),
+                ),
+                ("telefono", models.IntegerField(default=None, verbose_name="Celular")),
+                (
+                    "foto_perfil",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                    ),
+                ),
+                (
+                    "descripcion",
+                    models.TextField(blank=True, default="descripcion", null=True),
+                ),
+                (
+                    "cliente_relacionado",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ley_en_mano.cliente",
+                    ),
+                ),
+                (
+                    "especialidad",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ley_en_mano.especialidad",
+                    ),
+                ),
             ],
         ),
     ]
