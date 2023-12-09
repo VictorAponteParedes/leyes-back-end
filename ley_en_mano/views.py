@@ -4,9 +4,8 @@ from .serializers import (
     ClienteSerializer,
     AbogadoSerializer,
     CasoSerializer,
-    EspecialidadSerializer,
 )
-from .models import CustomUser, Cliente, Abogado, Caso, Especialidad
+from .models import CustomUser, Cliente, Abogado, Caso
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -55,10 +54,15 @@ class AbogadoViewset(viewsets.ModelViewSet):
     serializer_class = AbogadoSerializer
     queryset = Abogado.objects.all()
 
-
-class EspecialidadViewset(viewsets.ModelViewSet):
-    serializer_class = EspecialidadSerializer
-    queryset = Especialidad.objects.all()
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            res_msg = {"Success_Message": "Created", "Success_Code": 201}
+            return Response(res_msg, status=201, headers=headers)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class CasoViewset(viewsets.ModelViewSet):

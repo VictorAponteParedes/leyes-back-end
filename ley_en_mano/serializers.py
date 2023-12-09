@@ -1,4 +1,4 @@
-from .models import CustomUser, Especialidad, Abogado, Cliente, Caso
+from .models import CustomUser, Abogado, Cliente, Caso
 from rest_framework import serializers
 
 
@@ -30,16 +30,7 @@ class ClienteSerializer(serializers.ModelSerializer):
         ]
 
 
-class EspecialidadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Especialidad
-        fields = ["id", "nombre"]
-
-
 class AbogadoSerializer(serializers.ModelSerializer):
-    cliente_relacionado = ClienteSerializer()
-    especialidad = EspecialidadSerializer()
-
     class Meta:
         model = Abogado
         fields = [
@@ -47,8 +38,8 @@ class AbogadoSerializer(serializers.ModelSerializer):
             "nombre",
             "edad",
             "telefono",
-            "cliente_relacionado",
-            "foto_perfil",
+            "email",
             "especialidad",
+            "foto_perfil",
             "descripcion",
         ]
