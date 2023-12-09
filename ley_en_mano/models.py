@@ -7,16 +7,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-def imagen_cliente(instance, filename):
-    ext = filename.split(".")[-1]
-    filename = "%s.%s" % (str(uuid.uuid4()).replace("-", ""), ext)
-    return os.path.join("cliente", filename)
-
-
-def imagen_abogado(instance, filename):
-    ext = filename.split(".")[-1]
-    filename = "%s.%s" % (str(uuid.uuid4()).replace("-", ""), ext)
-    return os.path.join("abogado", filename)
 
 
 class CustomUser(AbstractUser):
@@ -60,14 +50,7 @@ class Cliente(models.Model):
     telefono = models.IntegerField("Celular", default=None)
     caso_relacionado = models.ForeignKey(Caso, on_delete=models.CASCADE)
     is_activo = models.BooleanField(default=False)
-    foto_perfil = models.ImageField(upload_to=imagen_cliente, null=True, blank=True)
-
-    def __str__(self):
-        return self.nombre
-
-
-class Especialidad(models.Model):
-    nombre = models.CharField(max_length=100, unique=True)
+    foto_perfil = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.nombre
@@ -77,9 +60,14 @@ class Abogado(models.Model):
     nombre = models.CharField("Nombre", max_length=50, null=True)
     edad = models.IntegerField("Edad", null=True, blank=True, default=20)
     telefono = models.IntegerField("Celular", default=None)
-    cliente_relacionado = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    foto_perfil = models.ImageField(upload_to=imagen_abogado, null=True, blank=True)
-    especialidad = models.ForeignKey(Especialidad, on_delete=models.CASCADE)
+    email = models.EmailField(
+        "Correo Electrónico", max_length=254, null=True, blank=True
+    )
+    foto_perfil = models.ImageField(null=True, blank=True)
+    especialidad = models.TextField(
+        null=True,
+        blank=True,
+    )
     descripcion = models.TextField(
         null=True,
         blank=True,

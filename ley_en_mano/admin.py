@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Caso, Cliente, Especialidad, Abogado
+from .models import CustomUser, Caso, Cliente, Abogado
 
 # Register your models here.
 
@@ -7,5 +7,4 @@ from .models import CustomUser, Caso, Cliente, Especialidad, Abogado
 admin.site.register(CustomUser)
 admin.site.register(Caso)
 admin.site.register(Cliente)
-admin.site.register(Especialidad)
 admin.site.register(Abogado)
